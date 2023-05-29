@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { FindFlights } from 'src/dtos/find-flights.dto';
+import { FindFlights } from 'src/dtos/find-flights-dto';
 import { AirportRepository } from 'src/repositories/airport-repository';
 import { FlightRepository } from 'src/repositories/flight-repository';
 

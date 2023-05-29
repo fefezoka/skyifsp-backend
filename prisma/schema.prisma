@@ -1,0 +1,42 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Airplane {
+  id      String   @id @default(uuid()) @map("_id")
+  code    String   @unique
+  seats   Int
+  plane   String
+  Flights Flight[]
+}
+
+model Airport {
+  id                 String   @id @default(uuid()) @map("_id")
+  code               String   @unique
+  country            String
+  state              String
+  city               String
+  airport            String
+  latitude           String
+  longitude          String
+  originFlights      Flight[] @relation("outward")
+  destinationFlights Flight[] @relation("outbound")
+}
+
+model Flight {
+  id            String   @id @default(uuid()) @map("_id")
+  departureDate DateTime
+  arrivalDate   DateTime
+  origin        Airport  @relation("outward", fields: [originId], references: [id], onDelete: Cascade)
+  destination   Airport  @relation("outbound", fields: [destinationId], references: [id], onDelete: Cascade)
+  airplane      Airplane @relation(fields: [airplaneId], references: [id], onDelete: Cascade)
+  originId      String
+  destinationId String
+  airplaneId    String
+}

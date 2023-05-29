@@ -5,9 +5,9 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { FindFlights } from 'src/dtos/find-flights-dto';
-import { AirportRepository } from 'src/repositories/airport-repository';
-import { FlightRepository } from 'src/repositories/flight-repository';
+import { FindFlights } from '../dtos/find-flights.dto';
+import { AirportRepository } from '../repositories/airport-repository';
+import { FlightRepository } from '../repositories/flight-repository';
 
 @Controller('flights')
 export class FlightsController {

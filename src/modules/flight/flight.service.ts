@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
-import { FlightRepository } from 'src/repositories/flight-repository';
+import { PrismaService } from '../../database/prisma.service';
+import { FlightRepository } from '../../repositories/flight-repository';
 import { Prisma } from '@prisma/client';
 
 @Injectable()

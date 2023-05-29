@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { AirportRepository } from 'src/repositories/airport-repository';
+import { AirportRepository } from '../repositories/airport-repository';
 
 @Controller('airport')
 export class AirportController {

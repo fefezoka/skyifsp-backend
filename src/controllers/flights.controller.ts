@@ -28,10 +28,10 @@ export class FlightsController {
     const outward = await this.flightsRepository.findMany({
       where: {
         // departureDate: query.outwardDate,
-        departureAirport: {
+        origin: {
           code: query.origin,
         },
-        arrivalAirport: {
+        destination: {
           code: query.destination,
         },
       },
@@ -48,10 +48,10 @@ export class FlightsController {
     const outbound = await this.flightsRepository.findMany({
       where: {
         // departureDate: query.outboundDate,
-        departureAirport: {
+        origin: {
           code: query.destination,
         },
-        arrivalAirport: {
+        destination: {
           code: query.origin,
         },
       },

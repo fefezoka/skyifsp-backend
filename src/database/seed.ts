@@ -60,12 +60,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport1.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport2.id,
         },
@@ -82,12 +82,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport1.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport3.id,
         },
@@ -104,12 +104,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport2.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport1.id,
         },
@@ -126,12 +126,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport3.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport2.id,
         },
@@ -148,12 +148,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport2.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport1.id,
         },
@@ -170,12 +170,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport2.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport3.id,
         },
@@ -192,12 +192,12 @@ async function main() {
           id: airplane.id,
         },
       },
-      departureAirport: {
+      origin: {
         connect: {
           id: airport3.id,
         },
       },
-      arrivalAirport: {
+      destination: {
         connect: {
           id: airport1.id,
         },

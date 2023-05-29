@@ -4,12 +4,17 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./ERD.png"
 }
 
 model Airplane {
-  id      String   @id @default(uuid()) @map("_id")
+  id      String   @id @default(uuid())
   code    String   @unique
   seats   Int
   plane   String
@@ -17,7 +22,7 @@ model Airplane {
 }
 
 model Airport {
-  id                 String   @id @default(uuid()) @map("_id")
+  id                 String   @id @default(uuid())
   code               String   @unique
   country            String
   state              String
@@ -30,7 +35,7 @@ model Airport {
 }
 
 model Flight {
-  id            String   @id @default(uuid()) @map("_id")
+  id            String   @id @default(uuid())
   departureDate DateTime
   arrivalDate   DateTime
   origin        Airport  @relation("outward", fields: [originId], references: [id], onDelete: Cascade)

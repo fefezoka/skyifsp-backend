@@ -18,10 +18,8 @@ export class FlightsController {
 
   @Get()
   async findMany(@Query() query: FindFlights) {
-    const departureAirport = await this.airportRepository.findByCode(
-      query.origin,
-    );
-    const arrivalAirport = await this.airportRepository.findByCode(
+    const origin = await this.airportRepository.findByCode(query.origin);
+    const destination = await this.airportRepository.findByCode(
       query.destination,
     );
 
@@ -42,7 +40,11 @@ export class FlightsController {
     }
 
     if (!query.outbound) {
-      return { outward: { type: 'outward', ...outward } };
+      return {
+        origin,
+        destination,
+        routes: [{ type: 'outward', flights: outward }],
+      };
     }
 
     const outbound = await this.flightsRepository.findMany({
@@ -62,8 +64,8 @@ export class FlightsController {
     }
 
     return {
-      origin: departureAirport,
-      destination: arrivalAirport,
+      origin,
+      destination,
       routes: [
         { type: 'outward', flights: outward },
         { type: 'outbound', flights: outbound },

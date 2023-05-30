@@ -7,7 +7,16 @@ import { Prisma } from '@prisma/client';
 export class FlightService implements FlightRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findMany(params: { where?: Prisma.FlightWhereInput }) {
+  async findMany() {
+    return await this.prisma.flight.findMany({
+      include: {
+        destination: true,
+        origin: true,
+      },
+    });
+  }
+
+  async search(params: { where?: Prisma.FlightWhereInput }) {
     const { where } = params;
     return await this.prisma.flight.findMany({
       where,

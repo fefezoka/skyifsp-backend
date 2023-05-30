@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { FindFlights } from '../dtos/find-flights.dto';
+import { SearchFlightsDto } from '../dtos/search-flights.dto';
 import { AirportRepository } from '../repositories/airport-repository';
 import { FlightRepository } from '../repositories/flight-repository';
 
@@ -17,15 +17,23 @@ export class FlightsController {
   ) {}
 
   @Get()
-  async findMany(@Query() query: FindFlights) {
+  async findMany() {
+    return await this.flightsRepository.findMany();
+  }
+
+  @Get('search')
+  async search(@Query() query: SearchFlightsDto) {
     const origin = await this.airportRepository.findByCode(query.origin);
     const destination = await this.airportRepository.findByCode(
       query.destination,
     );
 
-    const outward = await this.flightsRepository.findMany({
+    const outward = await this.flightsRepository.search({
       where: {
-        // departureDate: query.outwardDate,
+        departureDate: {
+          gte: new Date(query.outward + 'T00:00:00'),
+          lte: new Date(query.outward + 'T23:59:59'),
+        },
         origin: {
           code: query.origin,
         },
@@ -47,9 +55,12 @@ export class FlightsController {
       };
     }
 
-    const outbound = await this.flightsRepository.findMany({
+    const outbound = await this.flightsRepository.search({
       where: {
-        // departureDate: query.outboundDate,
+        departureDate: {
+          gte: new Date(query.outbound + 'T00:00:00'),
+          lte: new Date(query.outbound + 'T23:59:59'),
+        },
         origin: {
           code: query.destination,
         },

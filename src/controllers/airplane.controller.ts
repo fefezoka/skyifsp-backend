@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { AirplaneRepository } from '../repositories/airplane-repository';
 
-@Controller()
-export class AirplaneController {}
+@Controller('airplane')
+export class AirplaneController {
+  constructor(private airplaneRepository: AirplaneRepository) {}
+
+  @Get()
+  async findMany() {
+    return await this.airplaneRepository.findMany();
+  }
+}

@@ -2,10 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class SearchFlightsDto {
-  @ApiProperty({ description: 'Data de ida', example: '2023-05-31' })
-  @IsNotEmpty()
-  outward: string;
-
   @ApiProperty({
     description: 'Código do aeroporto de origem',
     example: 'CGH',
@@ -19,6 +15,10 @@ export class SearchFlightsDto {
   })
   @IsNotEmpty()
   destination?: string;
+
+  @ApiProperty({ description: 'Data de ida', example: '2023-05-31' })
+  @IsNotEmpty()
+  outward: string;
 
   @ApiProperty({
     description: 'Data de retorno - Opcional',

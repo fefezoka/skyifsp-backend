@@ -9,12 +9,15 @@ import { AirplaneModule } from './modules/airplane/airplane.module';
 import { FlightModule } from './modules/flight/flight.module';
 import { AirportRepository } from './repositories/airport-repository';
 import { AirportService } from './modules/airport/airport.service';
+import { AirplaneRepository } from './repositories/airplane-repository';
+import { AirplaneService } from './modules/airplane/airplane.service';
 
 @Module({
-  controllers: [AirplaneController, FlightsController, AirportController],
+  controllers: [FlightsController, AirportController, AirplaneController],
   providers: [
     PrismaService,
     { provide: FlightRepository, useClass: FlightService },
+    { provide: AirplaneRepository, useClass: AirplaneService },
     { provide: AirportRepository, useClass: AirportService },
   ],
   imports: [AirplaneModule, FlightModule],

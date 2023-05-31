@@ -6,14 +6,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { SearchFlightsDto } from '../dtos/search-flights.dto';
-import { AirportRepository } from '../repositories/airport-repository';
-import { FlightRepository } from '../repositories/flight-repository';
+import { AirportsRepository } from '../repositories/airports-repository';
+import { FlightsRepository } from '../repositories/flights-repository';
+import { calculateFlightPrice } from '../common/helpers/calculate-flight-price';
 
 @Controller('flights')
 export class FlightsController {
   constructor(
-    private flightsRepository: FlightRepository,
-    private airportRepository: AirportRepository,
+    private flightsRepository: FlightsRepository,
+    private airportsRepository: AirportsRepository,
   ) {}
 
   @Get()
@@ -23,73 +24,37 @@ export class FlightsController {
 
   @Get('search')
   async search(@Query() query: SearchFlightsDto) {
-    const origin = await this.airportRepository.findByCode(query.origin);
-    const destination = await this.airportRepository.findByCode(
+    const origin = await this.airportsRepository.findByCode(query.origin);
+    const destination = await this.airportsRepository.findByCode(
       query.destination,
     );
 
-    const distanceTax = await this.airportRepository.calculateTax(
-      destination.latitude,
-      destination.longitude,
+    const distanceInKm = this.airportsRepository.calculateDistanceInKm(
       origin.latitude,
       origin.longitude,
+      destination.latitude,
+      destination.longitude,
     );
 
-    const minimumPrice = 300;
+    const outwardFlights = await this.flightsRepository.search(
+      query.outward,
+      query.origin,
+      query.destination,
+    );
 
-    const dateIntervalInDays =
-      (new Date().getTime() - new Date(query.outward).getTime()) / 864000000;
-
-    const dateAlg = 300 - dateIntervalInDays * 5;
-    const dateTax = dateAlg > 0 ? dateAlg : 0;
-
-    const price = minimumPrice + distanceTax + dateTax;
-
-    console.log({ dateTax, distanceTax });
-
-    const outward = await this.flightsRepository.search({
-      where: {
-        departureDate: {
-          gte: new Date(query.outward + 'T00:00:00'),
-          lte: new Date(query.outward + 'T23:59:59'),
-        },
-        origin: {
-          code: query.origin,
-        },
-        destination: {
-          code: query.destination,
-        },
-      },
-    });
-
-    if (!outward || outward.length === 0) {
+    if (!outwardFlights || outwardFlights.length === 0) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    if (!query.outbound) {
-      return {
-        origin,
-        destination,
-        routes: [{ type: 'outward', flights: outward }],
-      };
-    }
+    const outbound =
+      query.outbound &&
+      (await this.flightsRepository.search(
+        query.outbound,
+        query.destination,
+        query.origin,
+      ));
 
-    const outbound = await this.flightsRepository.search({
-      where: {
-        departureDate: {
-          gte: new Date(query.outbound + 'T00:00:00'),
-          lte: new Date(query.outbound + 'T23:59:59'),
-        },
-        origin: {
-          code: query.destination,
-        },
-        destination: {
-          code: query.origin,
-        },
-      },
-    });
-
-    if (!outbound || outbound.length === 0) {
+    if (query.outbound && (!outbound || outbound.length === 0)) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
@@ -97,9 +62,25 @@ export class FlightsController {
       origin,
       destination,
       routes: [
-        { type: 'outward', flights: outward },
-        { type: 'outbound', flights: outbound },
-      ],
+        {
+          type: 'outward',
+          flights: outwardFlights,
+        },
+        ...(outbound ? [{ type: 'outbound', flights: outbound }] : []),
+      ].map((route) => {
+        return {
+          ...route,
+          flights: route.flights.map((flight) => {
+            return {
+              ...flight,
+              price: calculateFlightPrice({
+                distanceInKm,
+                outward: flight.departureDate,
+              }),
+            };
+          }),
+        };
+      }),
     };
   }
 }

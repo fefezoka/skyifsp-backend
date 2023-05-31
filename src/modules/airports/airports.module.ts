@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AirplaneService } from './airplane.service';
+import { AirportsService } from './airports.service';
 import { PrismaService } from '../../database/prisma.service';
 
 @Module({
   imports: [],
-  providers: [AirplaneService, PrismaService],
+  providers: [AirportsService, PrismaService],
 })
-export class AirplaneModule {}
+export class AirportsModule {}

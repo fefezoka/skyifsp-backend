@@ -1,5 +1,5 @@
 import { Airplane } from '@prisma/client';
 
-export abstract class AirplaneRepository {
+export abstract class AirplanesRepository {
   abstract findMany(): Promise<Airplane[]>;
 }

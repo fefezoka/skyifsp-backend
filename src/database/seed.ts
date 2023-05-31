@@ -15,10 +15,10 @@ async function main() {
     },
   });
 
-  const airport1 = await prisma.airport.create({
+  const SP = await prisma.airport.create({
     data: {
-      country: 'BR',
-      state: 'SP',
+      country: 'Brasil',
+      countryCode: 'BR',
       city: 'São Paulo',
       airport: 'Congonhas',
       code: 'CGH',
@@ -27,10 +27,10 @@ async function main() {
     },
   });
 
-  const airport2 = await prisma.airport.create({
+  const RJ = await prisma.airport.create({
     data: {
-      country: 'BR',
-      state: 'RJ',
+      country: 'Brasil',
+      countryCode: 'BR',
       city: 'Rio de Janeiro',
       code: 'GIG',
       airport: 'Galeão',
@@ -39,10 +39,10 @@ async function main() {
     },
   });
 
-  const airport3 = await prisma.airport.create({
+  const MG = await prisma.airport.create({
     data: {
-      country: 'BR',
-      state: 'MG',
+      country: 'Brasil',
+      countryCode: 'BR',
       city: 'Belo Horizonte',
       code: 'CNF',
       airport: 'Confins',
@@ -51,10 +51,46 @@ async function main() {
     },
   });
 
+  const BA = await prisma.airport.create({
+    data: {
+      country: 'Brasil',
+      countryCode: 'BR',
+      city: 'Salvador',
+      code: 'SSA',
+      airport: 'Dep. Luis Eduardo Magalhães',
+      latitude: -12.911758231,
+      longitude: -38.32930307,
+    },
+  });
+
+  const KR = await prisma.airport.create({
+    data: {
+      country: 'Córeia do Sul',
+      countryCode: 'KR',
+      city: 'Seoul',
+      code: 'ICN',
+      airport: 'Incheon',
+      latitude: 37.46037738,
+      longitude: 126.441071543,
+    },
+  });
+
+  const SK = await prisma.airport.create({
+    data: {
+      country: 'Eslováquia',
+      countryCode: 'SK',
+      city: 'Bretislava',
+      code: 'BTS',
+      airport: 'Bratislava',
+      latitude: 48.169726558,
+      longitude: 17.199604646,
+    },
+  });
+
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-05-31T14:30:00.000Z'),
-      arrivalDate: new Date('2023-05-31T21:30:00.000Z'),
+      departureDate: new Date('2023-06-02T14:30:00.000Z'),
+      arrivalDate: new Date('2023-06-02T21:30:00.000Z'),
       airplane: {
         connect: {
           id: airplane.id,
@@ -62,12 +98,34 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport1.id,
+          id: SP.id,
         },
       },
       destination: {
         connect: {
-          id: airport2.id,
+          id: RJ.id,
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-02T11:20:00.000Z'),
+      arrivalDate: new Date('2023-06-02T12:20:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: SP.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: RJ.id,
         },
       },
     },
@@ -84,12 +142,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport1.id,
+          id: SP.id,
         },
       },
       destination: {
         connect: {
-          id: airport3.id,
+          id: MG.id,
         },
       },
     },
@@ -97,8 +155,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-02T07:30:00.000Z'),
-      arrivalDate: new Date('2023-06-02T12:50:00.000Z'),
+      departureDate: new Date('2023-06-29T07:30:00.000Z'),
+      arrivalDate: new Date('2023-06-29T12:50:00.000Z'),
       airplane: {
         connect: {
           id: airplane.id,
@@ -106,12 +164,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport2.id,
+          id: RJ.id,
         },
       },
       destination: {
         connect: {
-          id: airport1.id,
+          id: SP.id,
         },
       },
     },
@@ -128,12 +186,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport3.id,
+          id: MG.id,
         },
       },
       destination: {
         connect: {
-          id: airport2.id,
+          id: RJ.id,
         },
       },
     },
@@ -141,8 +199,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-07-02T12:30:00.000Z'),
-      arrivalDate: new Date('2023-07-02T16:20:00.000Z'),
+      departureDate: new Date('2023-06-29T12:30:00.000Z'),
+      arrivalDate: new Date('2023-06-29T16:20:00.000Z'),
       airplane: {
         connect: {
           id: airplane.id,
@@ -150,12 +208,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport2.id,
+          id: RJ.id,
         },
       },
       destination: {
         connect: {
-          id: airport1.id,
+          id: SP.id,
         },
       },
     },
@@ -172,12 +230,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport2.id,
+          id: RJ.id,
         },
       },
       destination: {
         connect: {
-          id: airport3.id,
+          id: MG.id,
         },
       },
     },
@@ -194,22 +252,150 @@ async function main() {
       },
       origin: {
         connect: {
-          id: airport3.id,
+          id: MG.id,
         },
       },
       destination: {
         connect: {
-          id: airport1.id,
+          id: SP.id,
         },
       },
     },
   });
 
-  console.log({
-    airplane,
-    airport1,
-    airport2,
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-13T14:30:00.000Z'),
+      arrivalDate: new Date('2023-06-13T20:20:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: SP.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: BA.id,
+        },
+      },
+    },
   });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-29T08:20:00.000Z'),
+      arrivalDate: new Date('2023-06-29T15:50:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: BA.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: SP.id,
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-02T08:20:00.000Z'),
+      arrivalDate: new Date('2023-06-04T10:50:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: SP.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: KR.id,
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-29T08:20:00.000Z'),
+      arrivalDate: new Date('2023-06-31T10:50:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: KR.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: SP.id,
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-02T08:20:00.000Z'),
+      arrivalDate: new Date('2023-06-03T10:50:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: KR.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: SK.id,
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date('2023-06-29T08:20:00.000Z'),
+      arrivalDate: new Date('2023-06-30T10:50:00.000Z'),
+      airplane: {
+        connect: {
+          id: airplane.id,
+        },
+      },
+      origin: {
+        connect: {
+          id: SK.id,
+        },
+      },
+      destination: {
+        connect: {
+          id: KR.id,
+        },
+      },
+    },
+  });
+
+  console.log('200');
 }
 
 main()

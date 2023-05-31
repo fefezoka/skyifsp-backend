@@ -26,11 +26,11 @@ model Airport {
   id                 String   @id @default(uuid()) @map("_id")
   code               String   @unique
   country            String
-  state              String
+  countryCode        String
   city               String
   airport            String
-  latitude           String
-  longitude          String
+  latitude           Float
+  longitude          Float
   originFlights      Flight[] @relation("outward")
   destinationFlights Flight[] @relation("outbound")
 }

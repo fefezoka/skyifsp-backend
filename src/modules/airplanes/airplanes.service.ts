@@ -1,10 +1,10 @@
 import { Airplane } from '@prisma/client';
 import { PrismaService } from '../../database/prisma.service';
-import { AirplaneRepository } from '../../repositories/airplane-repository';
+import { AirplanesRepository } from '../../repositories/airplanes-repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AirplaneService implements AirplaneRepository {
+export class AirplanesService implements AirplanesRepository {
   constructor(private prisma: PrismaService) {}
 
   async findMany(): Promise<Airplane[]> {

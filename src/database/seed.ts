@@ -22,8 +22,8 @@ async function main() {
       city: 'São Paulo',
       airport: 'Congonhas',
       code: 'CGH',
-      latitude: '123',
-      longitude: '123',
+      latitude: -23.62333084,
+      longitude: -46.65249739,
     },
   });
 
@@ -34,8 +34,8 @@ async function main() {
       city: 'Rio de Janeiro',
       code: 'GIG',
       airport: 'Galeão',
-      latitude: '123',
-      longitude: '123',
+      latitude: -22.805330112,
+      longitude: -43.239499042,
     },
   });
 
@@ -46,15 +46,15 @@ async function main() {
       city: 'Belo Horizonte',
       code: 'CNF',
       airport: 'Confins',
-      latitude: '123',
-      longitude: '123',
+      latitude: -19.633664132,
+      longitude: -43.967996128,
     },
   });
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-05-28T14:30:00.000Z'),
-      arrivalDate: new Date('2023-05-28T21:30:00.000Z'),
+      departureDate: new Date('2023-05-31T14:30:00.000Z'),
+      arrivalDate: new Date('2023-05-31T21:30:00.000Z'),
       airplane: {
         connect: {
           id: airplane.id,

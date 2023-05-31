@@ -28,6 +28,25 @@ export class FlightsController {
       query.destination,
     );
 
+    const distanceTax = await this.airportRepository.calculateTax(
+      destination.latitude,
+      destination.longitude,
+      origin.latitude,
+      origin.longitude,
+    );
+
+    const minimumPrice = 300;
+
+    const dateIntervalInDays =
+      (new Date().getTime() - new Date(query.outward).getTime()) / 864000000;
+
+    const dateAlg = 300 - dateIntervalInDays * 5;
+    const dateTax = dateAlg > 0 ? dateAlg : 0;
+
+    const price = minimumPrice + distanceTax + dateTax;
+
+    console.log({ dateTax, distanceTax });
+
     const outward = await this.flightsRepository.search({
       where: {
         departureDate: {

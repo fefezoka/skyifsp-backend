@@ -71,12 +71,37 @@ export class FlightsController {
         return {
           ...route,
           flights: route.flights.map((flight) => {
+            const price = calculateFlightPrice({
+              distanceInKm,
+              outward: flight.departureDate,
+            });
+
+            const adultsPrice = {
+              message: `${query.adults} ${
+                query.adults > 1 ? 'Adultos' : 'Adulto'
+              }`,
+
+              amount: query.adults * price,
+            };
+
+            const kidsPrice = query.kids > 0 && {
+              message: `${query.kids} ${
+                query.kids > 1 ? 'Crianças' : 'Criança'
+              }`,
+
+              amount: +(query.kids * price * 0.85).toFixed(2),
+            };
+
             return {
               ...flight,
-              price: calculateFlightPrice({
-                distanceInKm,
-                outward: flight.departureDate,
-              }),
+              priceDetails: {
+                pricePerAdult: price,
+                pricePerKid: +(price * 0.85).toFixed(2),
+                total: adultsPrice.amount + (kidsPrice.amount || 0),
+                items: Object.values({ adultsPrice, kidsPrice }).filter(
+                  Boolean,
+                ),
+              },
             };
           }),
         };

@@ -39,18 +39,6 @@ async function main() {
     },
   });
 
-  const MG = await prisma.airport.create({
-    data: {
-      country: 'Brasil',
-      countryCode: 'BR',
-      city: 'Belo Horizonte',
-      code: 'CNF',
-      airport: 'Confins',
-      latitude: -19.633664132,
-      longitude: -43.967996128,
-    },
-  });
-
   const BA = await prisma.airport.create({
     data: {
       country: 'Brasil',
@@ -63,34 +51,34 @@ async function main() {
     },
   });
 
-  const KR = await prisma.airport.create({
+  const JP = await prisma.airport.create({
     data: {
-      country: 'Córeia do Sul',
-      countryCode: 'KR',
-      city: 'Seoul',
-      code: 'ICN',
-      airport: 'Incheon',
-      latitude: 37.46037738,
-      longitude: 126.441071543,
+      country: 'Japão',
+      countryCode: 'JP',
+      city: 'Tóquio',
+      code: 'HND',
+      airport: 'Haneda',
+      latitude: 35.54941063,
+      longitude: 149.779849325,
     },
   });
 
-  const SK = await prisma.airport.create({
+  const BE = await prisma.airport.create({
     data: {
-      country: 'Eslováquia',
-      countryCode: 'SK',
-      city: 'Bretislava',
-      code: 'BTS',
-      airport: 'Bratislava',
-      latitude: 48.169726558,
-      longitude: 17.199604646,
+      country: 'Bélgica',
+      countryCode: 'BE',
+      city: 'Bruxelas',
+      code: 'BRU',
+      airport: 'Bruxelas',
+      latitude: 50.897643138,
+      longitude: 4.483887324,
     },
   });
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-02T14:30:00.000Z'),
-      arrivalDate: new Date('2023-06-02T21:30:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 14, 30),
+      arrivalDate: new Date(2023, 5, 14, 15, 30),
       airplane: {
         connect: {
           id: airplane.id,
@@ -111,8 +99,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-02T11:20:00.000Z'),
-      arrivalDate: new Date('2023-06-02T12:20:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 11, 20),
+      arrivalDate: new Date(2023, 5, 14, 12, 30),
       airplane: {
         connect: {
           id: airplane.id,
@@ -133,8 +121,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-05-31T22:30:00.000Z'),
-      arrivalDate: new Date('2023-06-01T03:30:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 9, 50),
+      arrivalDate: new Date(2023, 5, 14, 11),
       airplane: {
         connect: {
           id: airplane.id,
@@ -147,7 +135,7 @@ async function main() {
       },
       destination: {
         connect: {
-          id: MG.id,
+          id: RJ.id,
         },
       },
     },
@@ -155,8 +143,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-29T07:30:00.000Z'),
-      arrivalDate: new Date('2023-06-29T12:50:00.000Z'),
+      departureDate: new Date(2023, 5, 29, 11, 40),
+      arrivalDate: new Date(2023, 5, 29, 12, 40),
       airplane: {
         connect: {
           id: airplane.id,
@@ -177,30 +165,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-15T12:30:00.000Z'),
-      arrivalDate: new Date('2023-06-15T16:20:00.000Z'),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: MG.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: RJ.id,
-        },
-      },
-    },
-  });
-
-  await prisma.flight.create({
-    data: {
-      departureDate: new Date('2023-06-29T12:30:00.000Z'),
-      arrivalDate: new Date('2023-06-29T16:20:00.000Z'),
+      departureDate: new Date(2023, 5, 29, 12, 30),
+      arrivalDate: new Date(2023, 5, 29, 13, 40),
       airplane: {
         connect: {
           id: airplane.id,
@@ -221,52 +187,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-12T15:40:00.000Z'),
-      arrivalDate: new Date('2023-06-12T18:50:00.000Z'),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: RJ.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: MG.id,
-        },
-      },
-    },
-  });
-
-  await prisma.flight.create({
-    data: {
-      departureDate: new Date('2023-07-24T21:30:00.000Z'),
-      arrivalDate: new Date('2023-07-25T02:20:00.000Z'),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: MG.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
-        },
-      },
-    },
-  });
-
-  await prisma.flight.create({
-    data: {
-      departureDate: new Date('2023-06-13T14:30:00.000Z'),
-      arrivalDate: new Date('2023-06-13T20:20:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 19, 20),
+      arrivalDate: new Date(2023, 5, 14, 21, 30),
       airplane: {
         connect: {
           id: airplane.id,
@@ -287,8 +209,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-29T08:20:00.000Z'),
-      arrivalDate: new Date('2023-06-29T15:50:00.000Z'),
+      departureDate: new Date(2023, 5, 29, 13, 50),
+      arrivalDate: new Date(2023, 5, 29, 16, 10),
       airplane: {
         connect: {
           id: airplane.id,
@@ -309,8 +231,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-02T08:20:00.000Z'),
-      arrivalDate: new Date('2023-06-04T10:50:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 14, 30),
+      arrivalDate: new Date(2023, 5, 15, 23, 30),
       airplane: {
         connect: {
           id: airplane.id,
@@ -323,7 +245,7 @@ async function main() {
       },
       destination: {
         connect: {
-          id: KR.id,
+          id: JP.id,
         },
       },
     },
@@ -331,8 +253,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-29T08:20:00.000Z'),
-      arrivalDate: new Date('2023-06-31T10:50:00.000Z'),
+      departureDate: new Date(2023, 5, 29, 16, 40),
+      arrivalDate: new Date(2023, 6, 1, 1, 30),
       airplane: {
         connect: {
           id: airplane.id,
@@ -340,7 +262,7 @@ async function main() {
       },
       origin: {
         connect: {
-          id: KR.id,
+          id: JP.id,
         },
       },
       destination: {
@@ -353,8 +275,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-02T08:20:00.000Z'),
-      arrivalDate: new Date('2023-06-03T10:50:00.000Z'),
+      departureDate: new Date(2023, 5, 14, 10, 20),
+      arrivalDate: new Date(2023, 5, 15, 0, 10),
       airplane: {
         connect: {
           id: airplane.id,
@@ -362,12 +284,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: KR.id,
+          id: SP.id,
         },
       },
       destination: {
         connect: {
-          id: SK.id,
+          id: BE.id,
         },
       },
     },
@@ -375,8 +297,8 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date('2023-06-29T08:20:00.000Z'),
-      arrivalDate: new Date('2023-06-30T10:50:00.000Z'),
+      departureDate: new Date(2023, 5, 29, 23, 20),
+      arrivalDate: new Date(2023, 5, 30, 14, 40),
       airplane: {
         connect: {
           id: airplane.id,
@@ -384,12 +306,12 @@ async function main() {
       },
       origin: {
         connect: {
-          id: SK.id,
+          id: BE.id,
         },
       },
       destination: {
         connect: {
-          id: KR.id,
+          id: SP.id,
         },
       },
     },

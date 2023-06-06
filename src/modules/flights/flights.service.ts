@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 import { FlightsRepository } from '../../repositories/flights-repository';
+import { addDays } from 'date-fns';
 
 @Injectable()
 export class FlightsService implements FlightsRepository {
@@ -19,8 +20,8 @@ export class FlightsService implements FlightsRepository {
     const flights = await this.prisma.flight.findMany({
       where: {
         departureDate: {
-          gte: new Date(outwardDate + 'T00:00:00'),
-          lte: new Date(outwardDate + 'T23:59:59'),
+          gte: new Date(outwardDate + 'T03:00:00'),
+          lte: addDays(new Date(outwardDate + 'T02:59:59'), 1),
         },
         flightLegs: {
           some: {
@@ -49,11 +50,30 @@ export class FlightsService implements FlightsRepository {
       },
     });
 
-    return flights.filter(
-      (flight) =>
-        flight.flightLegs[0].origin.code === origin &&
-        flight.flightLegs[flight.flightLegs.length - 1].destination.code ===
-          destination,
-    );
+    return flights
+      .map((flight) => {
+        const originIndex = flight.flightLegs.findIndex(
+          (leg) => leg.origin.code === origin,
+        );
+
+        const destinationIndex = flight.flightLegs.findIndex(
+          (leg) => leg.destination.code === destination,
+        );
+
+        if (originIndex >= 0 && destinationIndex >= 0) {
+          const filteredFlightLegs = flight.flightLegs.slice(
+            originIndex,
+            destinationIndex + 1,
+          );
+
+          return {
+            ...flight,
+            flightLegs: filteredFlightLegs,
+            arrivalDate: flight.flightLegs[destinationIndex].arrivalDate,
+            departureDate: flight.flightLegs[originIndex].departureDate,
+          };
+        }
+      })
+      .filter(Boolean);
   }
 }

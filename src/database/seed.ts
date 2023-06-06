@@ -64,6 +64,18 @@ async function main() {
     },
   });
 
+  const CH = await prisma.airport.create({
+    data: {
+      country: 'China',
+      countryCode: 'CN',
+      city: 'Shangai',
+      code: 'PVG',
+      airport: 'Shangai Pudong',
+      latitude: 31.143458181,
+      longitude: 121.809494278,
+    },
+  });
+
   const BE = await prisma.airport.create({
     data: {
       country: 'Bélgica',
@@ -206,23 +218,57 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 14, 30),
-      arrivalDate: new Date(2023, 5, 15, 23, 30),
+      departureDate: new Date(2023, 5, 14, 17, 30),
+      arrivalDate: new Date(2023, 5, 15, 20, 30),
       flightLegs: {
         createMany: {
           data: [
             {
-              departureDate: new Date(2023, 5, 14, 14, 30),
-              arrivalDate: new Date(2023, 5, 15, 4, 30),
+              departureDate: new Date(2023, 5, 14, 16, 30),
+              arrivalDate: new Date(2023, 5, 15, 5, 30),
               airplaneId: airplane.id,
               originId: SP.id,
               destinationId: BE.id,
             },
             {
-              departureDate: new Date(2023, 5, 15, 8),
-              arrivalDate: new Date(2023, 5, 15, 23, 30),
+              departureDate: new Date(2023, 5, 15, 8, 30),
+              arrivalDate: new Date(2023, 5, 15, 20, 30),
               airplaneId: airplane.id,
               originId: BE.id,
+              destinationId: JP.id,
+            },
+          ],
+        },
+      },
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date(2023, 5, 14, 17, 30),
+      arrivalDate: new Date(2023, 5, 15, 20, 30),
+      flightLegs: {
+        createMany: {
+          data: [
+            {
+              departureDate: new Date(2023, 5, 14, 14, 30),
+              arrivalDate: new Date(2023, 5, 15, 2, 30),
+              airplaneId: airplane.id,
+              originId: SP.id,
+              destinationId: BE.id,
+            },
+            {
+              departureDate: new Date(2023, 5, 15, 5, 50),
+              arrivalDate: new Date(2023, 5, 15, 14, 30),
+              airplaneId: airplane.id,
+              originId: BE.id,
+              destinationId: CH.id,
+            },
+            {
+              departureDate: new Date(2023, 5, 15, 18),
+              arrivalDate: new Date(2023, 5, 15, 20, 30),
+              airplaneId: airplane.id,
+              originId: CH.id,
               destinationId: JP.id,
             },
           ],
@@ -253,38 +299,6 @@ async function main() {
               destinationId: SP.id,
             },
           ],
-        },
-      },
-    },
-  });
-
-  await prisma.flight.create({
-    data: {
-      departureDate: new Date(2023, 5, 14, 10, 20),
-      arrivalDate: new Date(2023, 5, 15, 0, 10),
-      flightLegs: {
-        create: {
-          departureDate: new Date(2023, 5, 14, 10, 20),
-          arrivalDate: new Date(2023, 5, 15, 0, 10),
-          airplaneId: airplane.id,
-          originId: SP.id,
-          destinationId: BE.id,
-        },
-      },
-    },
-  });
-
-  await prisma.flight.create({
-    data: {
-      departureDate: new Date(2023, 5, 29, 23, 20),
-      arrivalDate: new Date(2023, 5, 30, 14, 40),
-      flightLegs: {
-        create: {
-          departureDate: new Date(2023, 5, 29, 23, 20),
-          arrivalDate: new Date(2023, 5, 30, 14, 40),
-          airplaneId: airplane.id,
-          originId: BE.id,
-          destinationId: SP.id,
         },
       },
     },

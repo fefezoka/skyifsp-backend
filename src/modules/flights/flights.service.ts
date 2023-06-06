@@ -19,21 +19,18 @@ export class FlightsService implements FlightsRepository {
   async search(outwardDate: string, origin: string, destination: string) {
     const flights = await this.prisma.flight.findMany({
       where: {
-        departureDate: {
-          gte: new Date(outwardDate + 'T03:00:00'),
-          lte: addDays(new Date(outwardDate + 'T02:59:59'), 1),
-        },
         flightLegs: {
           some: {
-            OR: [
+            AND: [
               {
                 origin: {
                   code: origin,
                 },
               },
               {
-                destination: {
-                  code: destination,
+                departureDate: {
+                  gte: new Date(outwardDate + 'T03:00:00'),
+                  lte: addDays(new Date(outwardDate + 'T02:59:59'), 1),
                 },
               },
             ],

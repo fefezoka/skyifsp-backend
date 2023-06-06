@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class SearchFlightsDto {
   @ApiProperty({
@@ -16,7 +16,7 @@ export class SearchFlightsDto {
   @IsNotEmpty()
   destination?: string;
 
-  @ApiProperty({ description: 'Data de ida', example: '2023-06-13' })
+  @ApiProperty({ description: 'Data de ida', example: '2023-06-14' })
   @IsNotEmpty()
   outward: string;
 
@@ -30,11 +30,13 @@ export class SearchFlightsDto {
 
   @ApiProperty({
     description: 'Número de passageiros adultos',
+    example: 1,
   })
   adults: number;
 
   @ApiProperty({
     description: 'Número de passageiros adolescentes ou crianças',
+    required: false,
   })
   @IsOptional()
   kids?: number;

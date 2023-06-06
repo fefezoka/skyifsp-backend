@@ -46,7 +46,7 @@ export class FlightsController {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    const outbound =
+    const outboundFlights =
       query.outbound &&
       (await this.flightsRepository.search(
         query.outbound,
@@ -54,7 +54,7 @@ export class FlightsController {
         query.origin,
       ));
 
-    if (query.outbound && (!outbound || outbound.length === 0)) {
+    if (query.outbound && (!outboundFlights || outboundFlights.length === 0)) {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
@@ -66,42 +66,23 @@ export class FlightsController {
           type: 'outward',
           flights: outwardFlights,
         },
-        ...(outbound ? [{ type: 'outbound', flights: outbound }] : []),
+        ...(outboundFlights
+          ? [{ type: 'outbound', flights: outboundFlights }]
+          : []),
       ].map((route) => {
         return {
           ...route,
           flights: route.flights.map((flight) => {
-            const price = calculateFlightPrice({
+            const priceDetails = calculateFlightPrice({
               distanceInKm,
               outward: flight.departureDate,
+              adults: query.adults,
+              kids: query.kids,
             });
-
-            const adultsPrice = {
-              message: `${query.adults} ${
-                query.adults > 1 ? 'Adultos' : 'Adulto'
-              }`,
-
-              amount: query.adults * price,
-            };
-
-            const kidsPrice = query.kids > 0 && {
-              message: `${query.kids} ${
-                query.kids > 1 ? 'Crianças' : 'Criança'
-              }`,
-
-              amount: +(query.kids * price * 0.85).toFixed(2),
-            };
 
             return {
               ...flight,
-              priceDetails: {
-                pricePerAdult: price,
-                pricePerKid: +(price * 0.85).toFixed(2),
-                total: adultsPrice.amount + (kidsPrice.amount || 0),
-                items: Object.values({ adultsPrice, kidsPrice }).filter(
-                  Boolean,
-                ),
-              },
+              priceDetails,
             };
           }),
         };

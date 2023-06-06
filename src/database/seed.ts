@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.flightLeg.deleteMany();
   await prisma.flight.deleteMany();
   await prisma.airplane.deleteMany();
   await prisma.airport.deleteMany();
@@ -10,8 +11,8 @@ async function main() {
   const airplane = await prisma.airplane.create({
     data: {
       code: 'boeing-747',
-      plane: 'Boeing 747',
-      seats: 64,
+      plane: 'Boeing 747-8',
+      seats: 360,
     },
   });
 
@@ -79,19 +80,29 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 14, 30),
       arrivalDate: new Date(2023, 5, 14, 15, 30),
-      airplane: {
-        connect: {
-          id: airplane.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 14, 14, 30),
+          arrivalDate: new Date(2023, 5, 14, 15, 30),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: RJ.id,
         },
       },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: RJ.id,
+    },
+  });
+
+  await prisma.flight.create({
+    data: {
+      departureDate: new Date(2023, 5, 21, 16, 30),
+      arrivalDate: new Date(2023, 5, 21, 17, 30),
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 21, 16, 30),
+          arrivalDate: new Date(2023, 5, 21, 17, 30),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: RJ.id,
         },
       },
     },
@@ -101,19 +112,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 11, 20),
       arrivalDate: new Date(2023, 5, 14, 12, 30),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: RJ.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 14, 11, 20),
+          arrivalDate: new Date(2023, 5, 14, 12, 30),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: RJ.id,
         },
       },
     },
@@ -123,19 +128,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 9, 50),
       arrivalDate: new Date(2023, 5, 14, 11),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: RJ.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 14, 9, 50),
+          arrivalDate: new Date(2023, 5, 14, 11),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: RJ.id,
         },
       },
     },
@@ -145,19 +144,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 29, 11, 40),
       arrivalDate: new Date(2023, 5, 29, 12, 40),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: RJ.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
+      flightLegs: {
+        create: {
+          arrivalDate: new Date(2023, 5, 29, 12, 40),
+          departureDate: new Date(2023, 5, 29, 11, 40),
+          airplaneId: airplane.id,
+          originId: RJ.id,
+          destinationId: SP.id,
         },
       },
     },
@@ -167,19 +160,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 29, 12, 30),
       arrivalDate: new Date(2023, 5, 29, 13, 40),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: RJ.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
+      flightLegs: {
+        create: {
+          arrivalDate: new Date(2023, 5, 29, 13, 40),
+          departureDate: new Date(2023, 5, 29, 12, 30),
+          airplaneId: airplane.id,
+          originId: RJ.id,
+          destinationId: SP.id,
         },
       },
     },
@@ -189,19 +176,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 19, 20),
       arrivalDate: new Date(2023, 5, 14, 21, 30),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: BA.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 14, 19, 20),
+          arrivalDate: new Date(2023, 5, 14, 21, 30),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: BA.id,
         },
       },
     },
@@ -211,19 +192,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 29, 13, 50),
       arrivalDate: new Date(2023, 5, 29, 16, 10),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: BA.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 29, 13, 50),
+          arrivalDate: new Date(2023, 5, 29, 16, 10),
+          airplaneId: airplane.id,
+          originId: BA.id,
+          destinationId: SP.id,
         },
       },
     },
@@ -233,19 +208,24 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 14, 30),
       arrivalDate: new Date(2023, 5, 15, 23, 30),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: JP.id,
+      flightLegs: {
+        createMany: {
+          data: [
+            {
+              departureDate: new Date(2023, 5, 14, 14, 30),
+              arrivalDate: new Date(2023, 5, 15, 4, 30),
+              airplaneId: airplane.id,
+              originId: SP.id,
+              destinationId: BE.id,
+            },
+            {
+              departureDate: new Date(2023, 5, 15, 8),
+              arrivalDate: new Date(2023, 5, 15, 23, 30),
+              airplaneId: airplane.id,
+              originId: BE.id,
+              destinationId: JP.id,
+            },
+          ],
         },
       },
     },
@@ -255,19 +235,24 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 29, 16, 40),
       arrivalDate: new Date(2023, 6, 1, 1, 30),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: JP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
+      flightLegs: {
+        createMany: {
+          data: [
+            {
+              departureDate: new Date(2023, 5, 29, 16, 40),
+              arrivalDate: new Date(2023, 5, 30, 5, 30),
+              airplaneId: airplane.id,
+              originId: JP.id,
+              destinationId: BE.id,
+            },
+            {
+              departureDate: new Date(2023, 5, 30, 9, 40),
+              arrivalDate: new Date(2023, 6, 1, 1, 30),
+              airplaneId: airplane.id,
+              originId: BE.id,
+              destinationId: SP.id,
+            },
+          ],
         },
       },
     },
@@ -277,19 +262,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 14, 10, 20),
       arrivalDate: new Date(2023, 5, 15, 0, 10),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: SP.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: BE.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 14, 10, 20),
+          arrivalDate: new Date(2023, 5, 15, 0, 10),
+          airplaneId: airplane.id,
+          originId: SP.id,
+          destinationId: BE.id,
         },
       },
     },
@@ -299,19 +278,13 @@ async function main() {
     data: {
       departureDate: new Date(2023, 5, 29, 23, 20),
       arrivalDate: new Date(2023, 5, 30, 14, 40),
-      airplane: {
-        connect: {
-          id: airplane.id,
-        },
-      },
-      origin: {
-        connect: {
-          id: BE.id,
-        },
-      },
-      destination: {
-        connect: {
-          id: SP.id,
+      flightLegs: {
+        create: {
+          departureDate: new Date(2023, 5, 29, 23, 20),
+          arrivalDate: new Date(2023, 5, 30, 14, 40),
+          airplaneId: airplane.id,
+          originId: BE.id,
+          destinationId: SP.id,
         },
       },
     },

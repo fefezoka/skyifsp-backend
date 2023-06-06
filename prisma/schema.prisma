@@ -11,38 +11,46 @@ datasource db {
 generator erd {
   provider = "prisma-erd-generator"
   output   = "./ERD.png"
-  theme    = "forest"
 }
 
 model Airplane {
-  id      String   @id @default(uuid()) @map("_id")
-  code    String   @unique
+  id      String      @id @default(uuid()) @map("_id")
+  code    String      @unique
   seats   Int
   plane   String
-  Flights Flight[]
+  flights FlightLeg[]
 }
 
 model Airport {
-  id                 String   @id @default(uuid()) @map("_id")
-  code               String   @unique
-  country            String
-  countryCode        String
-  city               String
-  airport            String
-  latitude           Float
-  longitude          Float
-  originFlights      Flight[] @relation("outward")
-  destinationFlights Flight[] @relation("outbound")
+  id                String      @id @default(uuid()) @map("_id")
+  code              String      @unique
+  country           String
+  countryCode       String
+  city              String
+  airport           String
+  latitude          Float
+  longitude         Float
+  outwardFlightLeg  FlightLeg[] @relation("outward")
+  outboundFlightLeg FlightLeg[] @relation("outbound")
 }
 
 model Flight {
+  id            String      @id @default(uuid()) @map("_id")
+  departureDate DateTime
+  arrivalDate   DateTime
+  flightLegs    FlightLeg[]
+}
+
+model FlightLeg {
   id            String   @id @default(uuid()) @map("_id")
   departureDate DateTime
   arrivalDate   DateTime
   origin        Airport  @relation("outward", fields: [originId], references: [id], onDelete: Cascade)
   destination   Airport  @relation("outbound", fields: [destinationId], references: [id], onDelete: Cascade)
   airplane      Airplane @relation(fields: [airplaneId], references: [id], onDelete: Cascade)
+  flight        Flight   @relation(fields: [flightId], references: [id], onDelete: Cascade)
   originId      String
   destinationId String
   airplaneId    String
+  flightId      String
 }

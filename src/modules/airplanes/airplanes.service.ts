@@ -1,6 +1,6 @@
 import { Airplane } from '@prisma/client';
-import { PrismaService } from '../../database/prisma.service';
-import { AirplanesRepository } from '../../repositories/airplanes-repository';
+import { PrismaService } from '../../prisma/prisma.service';
+import { AirplanesRepository } from './airplanes-repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

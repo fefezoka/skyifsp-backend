@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/prisma.service';
-import { AirportsRepository } from '../../repositories/airports-repository';
+import { PrismaService } from '../../prisma/prisma.service';
+import { AirportsRepository } from './airports-repository';
 
 @Injectable()
 export class AirportsService implements AirportsRepository {

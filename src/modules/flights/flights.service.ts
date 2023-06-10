@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/prisma.service';
-import { FlightsRepository } from '../../repositories/flights-repository';
+import { PrismaService } from '../../prisma/prisma.service';
+import { FlightsRepository } from './flights-repository';
 import { addDays } from 'date-fns';
 
 @Injectable()

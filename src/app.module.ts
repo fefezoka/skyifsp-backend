@@ -1,25 +1,31 @@
 import { Module } from '@nestjs/common';
-import { AirplanesController } from './controllers/airplanes.controller';
-import { FlightsController } from './controllers/flights.controller';
-import { AirportsController } from './controllers/airports.controller';
-import { PrismaService } from './database/prisma.service';
-import { FlightsRepository } from './repositories/flights-repository';
-import { FlightsService } from './modules/flights/flights.service';
 import { AirplanesModule } from './modules/airplanes/airplanes.module';
 import { FlightsModule } from './modules/flights/flights.module';
-import { AirportsRepository } from './repositories/airports-repository';
-import { AirportsService } from './modules/airports/airports.service';
-import { AirplanesRepository } from './repositories/airplanes-repository';
-import { AirplanesService } from './modules/airplanes/airplanes.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { UserModule } from './modules/users/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthService } from './modules/auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { AirportsModule } from './modules/airports/airports.module';
 
 @Module({
-  controllers: [FlightsController, AirportsController, AirplanesController],
-  providers: [
-    PrismaService,
-    { provide: FlightsRepository, useClass: FlightsService },
-    { provide: AirplanesRepository, useClass: AirplanesService },
-    { provide: AirportsRepository, useClass: AirportsService },
+  imports: [
+    AirplanesModule,
+    FlightsModule,
+    AirportsModule,
+    PrismaModule,
+    UserModule,
+    AuthModule,
   ],
-  imports: [AirplanesModule, FlightsModule],
+  providers: [
+    AuthService,
+    JwtService,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard,
+    // },
+  ],
 })
 export class AppModule {}

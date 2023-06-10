@@ -5,10 +5,10 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { SearchFlightsDto } from '../dtos/search-flights.dto';
-import { AirportsRepository } from '../repositories/airports-repository';
-import { FlightsRepository } from '../repositories/flights-repository';
-import { calculateFlightPrice } from '../common/helpers/calculate-flight-price';
+import { SearchFlightsDto } from './dtos/search-flights.dto';
+import { AirportsRepository } from '../airports/airports-repository';
+import { FlightsRepository } from './flights-repository';
+import { calculateFlightPrice } from '../../common/helpers/calculate-flight-price';
 
 @Controller('flights')
 export class FlightsController {

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { AirplanesRepository } from '../repositories/airplanes-repository';
+import { AirplanesRepository } from './airplanes-repository';
 
 @Controller('airplanes')
 export class AirplanesController {

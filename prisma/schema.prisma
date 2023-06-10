@@ -13,6 +13,13 @@ generator erd {
   output   = "./ERD.png"
 }
 
+model User {
+  id       String @id @default(uuid()) @map("_id")
+  email    String @unique
+  name     String
+  password String
+}
+
 model Airplane {
   id      String      @id @default(uuid()) @map("_id")
   code    String      @unique

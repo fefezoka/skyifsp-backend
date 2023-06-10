@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AirplanesService } from './airplanes.service';
-import { PrismaService } from '../../database/prisma.service';
+import { AirplanesController } from './airplanes.controller';
+import { PrismaModule } from '../../prisma/prisma.module';
+import { AirplanesRepository } from './airplanes-repository';
 
 @Module({
-  imports: [],
-  providers: [AirplanesService, PrismaService],
+  imports: [PrismaModule],
+  controllers: [AirplanesController],
+  providers: [
+    AirplanesService,
+    { provide: AirplanesRepository, useClass: AirplanesService },
+  ],
+  exports: [AirplanesService],
 })
 export class AirplanesModule {}

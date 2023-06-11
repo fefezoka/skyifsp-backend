@@ -8,5 +8,5 @@ export abstract class AirportsRepository {
     outboundLongitude: number,
   ): number;
   abstract findMany(): Promise<Airport[]>;
-  abstract findByCode(plane: string): Promise<Airport>;
+  abstract findByCode(code: string): Promise<Airport>;
 }

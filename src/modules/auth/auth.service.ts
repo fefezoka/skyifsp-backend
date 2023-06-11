@@ -6,6 +6,7 @@ import { User } from '../users/entities/user.entity';
 import { UserService } from '../users/user.service';
 import { UserPayload } from './models/UserPayload';
 import { UserToken } from './models/UserToken';
+import { UserFromJwt } from './models/UserFromJwt';
 
 @Injectable()
 export class AuthService {
@@ -14,11 +15,9 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async login(user: User): Promise<UserToken> {
+  async login(user: UserFromJwt): Promise<UserToken> {
     const payload: UserPayload = {
       sub: user.id,
-      email: user.email,
-      name: user.name,
     };
 
     return {

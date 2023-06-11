@@ -9,6 +9,9 @@ import { SearchFlightsDto } from './dtos/search-flights.dto';
 import { AirportsRepository } from '../airports/airports-repository';
 import { FlightsRepository } from './flights-repository';
 import { calculateFlightPrice } from '../../common/helpers/calculate-flight-price';
+import { ApiResponse } from '@nestjs/swagger';
+import { FlightSearch } from './entities/flight-search.entity';
+import { FlightLeg } from './entities/flight-leg.entity';
 
 @Controller('flights')
 export class FlightsController {
@@ -18,11 +21,13 @@ export class FlightsController {
   ) {}
 
   @Get()
+  @ApiResponse({ type: FlightLeg, isArray: true })
   async findMany() {
     return await this.flightsRepository.findMany();
   }
 
   @Get('search')
+  @ApiResponse({ type: FlightSearch, isArray: true })
   async search(@Query() query: SearchFlightsDto) {
     const origin = await this.airportsRepository.findByCode(query.origin);
     const destination = await this.airportsRepository.findByCode(

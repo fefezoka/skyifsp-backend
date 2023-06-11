@@ -64,13 +64,13 @@ async function main() {
     },
   });
 
-  const CH = await prisma.airport.create({
+  const CN = await prisma.airport.create({
     data: {
       country: 'China',
       countryCode: 'CN',
-      city: 'Shangai',
+      city: 'Xangai',
       code: 'PVG',
-      airport: 'Shangai Pudong',
+      airport: 'Xangai Pudong',
       latitude: 31.143458181,
       longitude: 121.809494278,
     },
@@ -262,13 +262,13 @@ async function main() {
               arrivalDate: new Date(2023, 5, 15, 14, 30),
               airplaneId: airplane.id,
               originId: BE.id,
-              destinationId: CH.id,
+              destinationId: CN.id,
             },
             {
               departureDate: new Date(2023, 5, 15, 18),
               arrivalDate: new Date(2023, 5, 15, 20, 30),
               airplaneId: airplane.id,
-              originId: CH.id,
+              originId: CN.id,
               destinationId: JP.id,
             },
           ],
@@ -304,7 +304,7 @@ async function main() {
     },
   });
 
-  console.log('200');
+  console.log(200);
 }
 
 main()

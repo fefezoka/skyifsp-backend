@@ -11,16 +11,16 @@ export const calculateFlightPrice = ({
   adults,
   kids,
 }: CalculateFlightPrice) => {
-  const minimumPrice = 99.99;
+  const minimumPrice = 149.99;
 
   const dateIntervalInDays = Math.floor(
     (outward.getTime() - new Date().setHours(23, 59)) / 86400000,
   );
 
-  const dateAlg = 1500 - dateIntervalInDays * 145;
+  const dateAlg = 600 - dateIntervalInDays * 100;
   const dateTax = dateAlg > 0 ? dateAlg : 0;
 
-  const price = +(minimumPrice + distanceInKm * 0.3 + dateTax).toFixed(2);
+  const price = +(minimumPrice + distanceInKm * 0.28 + dateTax).toFixed(2);
 
   const adultsPrice = {
     message: `${adults} ${adults > 1 ? 'Adultos' : 'Adulto'}`,

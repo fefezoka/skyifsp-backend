@@ -1,8 +1,11 @@
-import { Body, Controller, Post, Get, Headers } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Body, Controller, Post, Get, Request } from '@nestjs/common';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
+import { UserPayload } from '../auth/models/UserPayload';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { UserClient } from './entities/user-client.entity';
 
 @Controller('user')
 export class UserController {
@@ -17,9 +20,15 @@ export class UserController {
   }
 
   @Get('me')
-  async me(@Headers('Authorization') auth: string) {
-    const jwt = this.jwtService.decode(auth.split(' ')[1]) as User;
-    const user = await this.userService.findByEmail(jwt.email);
+  @ApiBearerAuth()
+  @ApiResponse({ type: UserClient })
+  async me(@Request() req) {
+    const jwt = req.headers.authorization;
+    const jwtStrategy = new JwtStrategy();
+    const userPayload = await jwtStrategy.validate(
+      this.jwtService.decode(jwt.split(' ')[1]) as UserPayload,
+    );
+    const user = await this.userService.findById(userPayload.id);
 
     return {
       name: user.name,

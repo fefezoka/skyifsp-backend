@@ -4,9 +4,11 @@ import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { UsersRepository } from './users-repository';
+import { User } from './entities/user.entity';
 
 @Injectable()
-export class UserService {
+export class UsersService implements UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<void> {
@@ -26,11 +28,15 @@ export class UserService {
     await this.prisma.user.create({ data });
   }
 
-  findByEmail(email: string) {
-    return this.prisma.user.findUnique({ where: { email } });
+  async findMany(): Promise<User[]> {
+    return await this.prisma.user.findMany();
   }
 
-  findById(id: string) {
-    return this.prisma.user.findUnique({ where: { id } });
+  async findByEmail(email: string): Promise<User> {
+    return await this.prisma.user.findUnique({ where: { email } });
+  }
+
+  async findById(id: string): Promise<User> {
+    return await this.prisma.user.findUnique({ where: { id } });
   }
 }

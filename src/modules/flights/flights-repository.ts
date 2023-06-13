@@ -1,7 +1,8 @@
-import { Flight } from '@prisma/client';
+import { FlightLeg } from './entities/flight-leg.entity';
+import { Flight } from './entities/flight.entity';
 
 export abstract class FlightsRepository {
-  abstract findMany(): Promise<Flight[]>;
+  abstract findMany(): Promise<FlightLeg[]>;
   abstract search(
     outwardDate: string,
     origin: string,

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { FlightLeg } from './flight-leg.entity';
+import { FlightLegWithPrice } from './flight-leg.entity';
 
 export class Flight {
   @ApiProperty()
@@ -12,5 +12,5 @@ export class Flight {
   arrivalDate: Date;
 
   @ApiProperty({ isArray: true })
-  flightLegs: FlightLeg;
+  flightLegs: FlightLegWithPrice[];
 }

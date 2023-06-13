@@ -12,6 +12,7 @@ export class FlightsService implements FlightsRepository {
       include: {
         destination: true,
         origin: true,
+        airplane: true,
       },
     });
   }

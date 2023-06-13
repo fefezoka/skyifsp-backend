@@ -2,17 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UnauthorizedError } from './errors/unauthorized.error';
-import { User } from '../users/entities/user.entity';
-import { UserService } from '../users/user.service';
+import { UsersService } from '../users/users.service';
 import { UserPayload } from './models/UserPayload';
 import { UserToken } from './models/UserToken';
 import { UserFromJwt } from './models/UserFromJwt';
+import { AuthRepository } from './auth-repository';
+import { User } from '@prisma/client';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements AuthRepository {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userService: UserService,
+    private readonly usersService: UsersService,
   ) {}
 
   async login(user: UserFromJwt): Promise<UserToken> {
@@ -25,16 +26,20 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.userService.findByEmail(email);
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<Omit<User, 'password'>> {
+    const user = await this.usersService.findByEmail(email);
 
     if (user) {
       const isPasswordValid = await bcrypt.compare(password, user.password);
 
+      const { password: noPassword, ...rest } = user;
+
       if (isPasswordValid) {
         return {
-          ...user,
-          password: undefined,
+          ...rest,
         };
       }
     }

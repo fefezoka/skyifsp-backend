@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { AirportsRepository } from './airports-repository';
+import { Airport } from './entities/airport.entity';
 
 @Injectable()
 export class AirportsService implements AirportsRepository {
@@ -11,7 +12,7 @@ export class AirportsService implements AirportsRepository {
     outwardLongitude: number,
     outboundLatitude: number,
     outboundLongitude: number,
-  ) {
+  ): number {
     const R = 6371e3; // metres
     const φ1 = (outboundLatitude * Math.PI) / 180; // φ, λ in radians
     const φ2 = (outwardLatitude * Math.PI) / 180;
@@ -25,11 +26,11 @@ export class AirportsService implements AirportsRepository {
     return Math.ceil((R * c) / 1000); // in kilometers
   }
 
-  async findMany() {
+  async findMany(): Promise<Airport[]> {
     return await this.prisma.airport.findMany();
   }
 
-  async findByCode(code: string) {
+  async findByCode(code: string): Promise<Airport> {
     return await this.prisma.airport.findUnique({
       where: {
         code,

@@ -5,11 +5,11 @@ export class User {
   id: string;
 
   @ApiProperty()
+  name: string;
+
+  @ApiProperty()
   email: string;
 
   @ApiProperty()
   password: string;
-
-  @ApiProperty()
-  name: string;
 }

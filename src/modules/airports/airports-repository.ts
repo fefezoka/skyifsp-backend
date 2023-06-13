@@ -1,4 +1,4 @@
-import { Airport } from '@prisma/client';
+import { Airport } from './entities/airport.entity';
 
 export abstract class AirportsRepository {
   abstract calculateDistanceInKm(

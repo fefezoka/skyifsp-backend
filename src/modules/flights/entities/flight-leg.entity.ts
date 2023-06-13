@@ -34,7 +34,7 @@ export class FlightLeg {
   @ApiProperty()
   arrivalDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   airplane: Airplane;
 
   @ApiProperty()
@@ -42,7 +42,9 @@ export class FlightLeg {
 
   @ApiProperty()
   destination: Airport;
+}
 
+export class FlightLegWithPrice extends FlightLeg {
   @ApiProperty()
-  priceDetails: PriceDetails;
+  priceDetails?: PriceDetails;
 }

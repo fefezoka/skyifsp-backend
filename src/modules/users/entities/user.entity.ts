@@ -11,5 +11,11 @@ export class User {
   email: string;
 
   @ApiProperty()
+  birthdate: Date;
+
+  @ApiProperty()
   password: string;
+
+  @ApiProperty()
+  createdAt: Date;
 }

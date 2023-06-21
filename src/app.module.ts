@@ -19,13 +19,6 @@ import { AirportsModule } from './modules/airports/airports.module';
     UsersModule,
     AuthModule,
   ],
-  providers: [
-    AuthService,
-    JwtService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
-  ],
+  providers: [AuthService, JwtService],
 })
 export class AppModule {}

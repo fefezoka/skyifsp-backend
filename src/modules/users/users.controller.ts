@@ -1,44 +1,78 @@
-import { Body, Controller, Post, Get, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Query,
+  Request,
+  Put,
+  UseGuards,
+  Delete,
+} from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { UsersService } from './users.service';
-import { JwtService } from '@nestjs/jwt';
-import { JwtStrategy } from '../auth/strategies/jwt.strategy';
-import { UserPayload } from '../auth/models/UserPayload';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UserClient } from './entities/user-client.entity';
 import { User } from './entities/user.entity';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { UsersRepository } from './users-repository';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { DeleteUserDto } from './dtos/delete-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly userService: UsersService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   @Get()
   @ApiResponse({ type: User, isArray: true })
   findMany() {
-    return this.userService.findMany();
-  }
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    return this.usersRepository.findMany();
   }
 
   @Get('me')
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: UserClient })
   async me(@Request() req) {
-    const jwt = req.headers.authorization;
-    const jwtStrategy = new JwtStrategy();
-    const userPayload = await jwtStrategy.validate(
-      this.jwtService.decode(jwt.split(' ')[1]) as UserPayload,
-    );
-    const user = await this.userService.findById(userPayload.id);
+    const user = await this.usersRepository.findById(req.user.id);
 
     return {
+      id: user.id,
       name: user.name,
+      email:
+        user.email.substring(0, 3) +
+        '*********' +
+        user.email.substring(user.email.indexOf('@'), user.email.length),
+      birthdate: user.birthdate,
     };
+  }
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersRepository.create(createUserDto);
+  }
+
+  @Put()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async update(@Body() UpdateUserDto: UpdateUserDto, @Request() req) {
+    return await this.usersRepository.update(UpdateUserDto, req.user.id);
+  }
+
+  @Put('password')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async password(@Body() UpdatePasswordDto: UpdatePasswordDto, @Request() req) {
+    return await this.usersRepository.updatePassword(
+      UpdatePasswordDto,
+      req.user.id,
+    );
+  }
+
+  @Delete()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async delete(@Query() DeleteUserDto: DeleteUserDto, @Request() req) {
+    return await this.usersRepository.delete(DeleteUserDto, req.user.id);
   }
 }

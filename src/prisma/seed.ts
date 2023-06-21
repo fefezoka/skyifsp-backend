@@ -90,12 +90,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 14, 30),
-      arrivalDate: new Date(2023, 5, 14, 15, 30),
+      departureDate: new Date(2023, 6, 1, 14, 30),
+      arrivalDate: new Date(2023, 6, 1, 15, 30),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 14, 14, 30),
-          arrivalDate: new Date(2023, 5, 14, 15, 30),
+          departureDate: new Date(2023, 6, 1, 14, 30),
+          arrivalDate: new Date(2023, 6, 1, 15, 30),
           airplaneId: airplane.id,
           originId: SP.id,
           destinationId: RJ.id,
@@ -106,12 +106,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 21, 16, 30),
-      arrivalDate: new Date(2023, 5, 21, 17, 30),
+      departureDate: new Date(2023, 6, 1, 16, 30),
+      arrivalDate: new Date(2023, 6, 1, 17, 30),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 21, 16, 30),
-          arrivalDate: new Date(2023, 5, 21, 17, 30),
+          departureDate: new Date(2023, 6, 1, 16, 30),
+          arrivalDate: new Date(2023, 6, 1, 17, 30),
           airplaneId: airplane.id,
           originId: SP.id,
           destinationId: RJ.id,
@@ -122,12 +122,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 11, 20),
-      arrivalDate: new Date(2023, 5, 14, 12, 30),
+      departureDate: new Date(2023, 6, 1, 11, 20),
+      arrivalDate: new Date(2023, 6, 1, 12, 30),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 14, 11, 20),
-          arrivalDate: new Date(2023, 5, 14, 12, 30),
+          departureDate: new Date(2023, 6, 1, 11, 20),
+          arrivalDate: new Date(2023, 6, 1, 12, 30),
           airplaneId: airplane.id,
           originId: SP.id,
           destinationId: RJ.id,
@@ -138,12 +138,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 9, 50),
-      arrivalDate: new Date(2023, 5, 14, 11),
+      departureDate: new Date(2023, 6, 1, 9, 50),
+      arrivalDate: new Date(2023, 6, 1, 11),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 14, 9, 50),
-          arrivalDate: new Date(2023, 5, 14, 11),
+          departureDate: new Date(2023, 6, 1, 9, 50),
+          arrivalDate: new Date(2023, 6, 1, 11),
           airplaneId: airplane.id,
           originId: SP.id,
           destinationId: RJ.id,
@@ -154,12 +154,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 29, 11, 40),
-      arrivalDate: new Date(2023, 5, 29, 12, 40),
+      departureDate: new Date(2023, 6, 29, 11, 40),
+      arrivalDate: new Date(2023, 6, 29, 12, 40),
       flightLegs: {
         create: {
-          arrivalDate: new Date(2023, 5, 29, 12, 40),
-          departureDate: new Date(2023, 5, 29, 11, 40),
+          arrivalDate: new Date(2023, 6, 29, 12, 40),
+          departureDate: new Date(2023, 6, 29, 11, 40),
           airplaneId: airplane.id,
           originId: RJ.id,
           destinationId: SP.id,
@@ -170,12 +170,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 29, 12, 30),
-      arrivalDate: new Date(2023, 5, 29, 13, 40),
+      departureDate: new Date(2023, 6, 29, 12, 30),
+      arrivalDate: new Date(2023, 6, 29, 13, 40),
       flightLegs: {
         create: {
-          arrivalDate: new Date(2023, 5, 29, 13, 40),
-          departureDate: new Date(2023, 5, 29, 12, 30),
+          arrivalDate: new Date(2023, 6, 29, 13, 40),
+          departureDate: new Date(2023, 6, 29, 12, 30),
           airplaneId: airplane.id,
           originId: RJ.id,
           destinationId: SP.id,
@@ -186,12 +186,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 19, 20),
-      arrivalDate: new Date(2023, 5, 14, 21, 30),
+      departureDate: new Date(2023, 6, 1, 19, 20),
+      arrivalDate: new Date(2023, 6, 1, 21, 30),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 14, 19, 20),
-          arrivalDate: new Date(2023, 5, 14, 21, 30),
+          departureDate: new Date(2023, 6, 1, 19, 20),
+          arrivalDate: new Date(2023, 6, 1, 21, 30),
           airplaneId: airplane.id,
           originId: SP.id,
           destinationId: BA.id,
@@ -202,12 +202,12 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 29, 13, 50),
-      arrivalDate: new Date(2023, 5, 29, 16, 10),
+      departureDate: new Date(2023, 6, 29, 13, 50),
+      arrivalDate: new Date(2023, 6, 29, 16, 10),
       flightLegs: {
         create: {
-          departureDate: new Date(2023, 5, 29, 13, 50),
-          arrivalDate: new Date(2023, 5, 29, 16, 10),
+          departureDate: new Date(2023, 6, 29, 13, 50),
+          arrivalDate: new Date(2023, 6, 29, 16, 10),
           airplaneId: airplane.id,
           originId: BA.id,
           destinationId: SP.id,
@@ -218,21 +218,21 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 17, 30),
-      arrivalDate: new Date(2023, 5, 15, 20, 30),
+      departureDate: new Date(2023, 6, 1, 17, 30),
+      arrivalDate: new Date(2023, 6, 1, 20, 30),
       flightLegs: {
         createMany: {
           data: [
             {
-              departureDate: new Date(2023, 5, 14, 16, 30),
-              arrivalDate: new Date(2023, 5, 15, 5, 30),
+              departureDate: new Date(2023, 6, 1, 16, 30),
+              arrivalDate: new Date(2023, 6, 2, 5, 30),
               airplaneId: airplane.id,
               originId: SP.id,
               destinationId: BE.id,
             },
             {
-              departureDate: new Date(2023, 5, 15, 8, 30),
-              arrivalDate: new Date(2023, 5, 15, 20, 30),
+              departureDate: new Date(2023, 6, 2, 8, 30),
+              arrivalDate: new Date(2023, 6, 2, 20, 30),
               airplaneId: airplane.id,
               originId: BE.id,
               destinationId: JP.id,
@@ -245,28 +245,28 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 14, 17, 30),
-      arrivalDate: new Date(2023, 5, 15, 20, 30),
+      departureDate: new Date(2023, 6, 1, 17, 30),
+      arrivalDate: new Date(2023, 6, 2, 20, 30),
       flightLegs: {
         createMany: {
           data: [
             {
-              departureDate: new Date(2023, 5, 14, 14, 30),
-              arrivalDate: new Date(2023, 5, 15, 2, 30),
+              departureDate: new Date(2023, 6, 1, 14, 30),
+              arrivalDate: new Date(2023, 6, 2, 2, 30),
               airplaneId: airplane.id,
               originId: SP.id,
               destinationId: BE.id,
             },
             {
-              departureDate: new Date(2023, 5, 15, 5, 50),
-              arrivalDate: new Date(2023, 5, 15, 14, 30),
+              departureDate: new Date(2023, 6, 2, 5, 50),
+              arrivalDate: new Date(2023, 6, 2, 14, 30),
               airplaneId: airplane.id,
               originId: BE.id,
               destinationId: CN.id,
             },
             {
-              departureDate: new Date(2023, 5, 15, 18),
-              arrivalDate: new Date(2023, 5, 15, 20, 30),
+              departureDate: new Date(2023, 6, 2, 18),
+              arrivalDate: new Date(2023, 6, 2, 20, 30),
               airplaneId: airplane.id,
               originId: CN.id,
               destinationId: JP.id,
@@ -279,21 +279,21 @@ async function main() {
 
   await prisma.flight.create({
     data: {
-      departureDate: new Date(2023, 5, 29, 16, 40),
-      arrivalDate: new Date(2023, 6, 1, 1, 30),
+      departureDate: new Date(2023, 6, 29, 16, 40),
+      arrivalDate: new Date(2023, 6, 31, 1, 30),
       flightLegs: {
         createMany: {
           data: [
             {
-              departureDate: new Date(2023, 5, 29, 16, 40),
-              arrivalDate: new Date(2023, 5, 30, 5, 30),
+              departureDate: new Date(2023, 6, 29, 16, 40),
+              arrivalDate: new Date(2023, 6, 30, 5, 30),
               airplaneId: airplane.id,
               originId: JP.id,
               destinationId: BE.id,
             },
             {
-              departureDate: new Date(2023, 5, 30, 9, 40),
-              arrivalDate: new Date(2023, 6, 1, 1, 30),
+              departureDate: new Date(2023, 6, 30, 9, 40),
+              arrivalDate: new Date(2023, 6, 31, 1, 30),
               airplaneId: airplane.id,
               originId: BE.id,
               destinationId: SP.id,
